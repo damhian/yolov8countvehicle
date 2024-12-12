@@ -24,16 +24,15 @@ my_file = open("coco.txt", "r")
 data = my_file.read()
 class_list = data.split("\n")
 #print(class_list)
+
 count=0
-tracker=Tracker()   
+tracker=Tracker()
+# area 1   
 area=[(416,192),(424,194),(444,180),(432,174)]
 area_c=set()
+# area 2
 area1=[(501,224),(517,227),(542,216),(527,212)]
 area_c1=set()
-
-
-
-
 
 while True:    
     ret,frame = cap.read()
@@ -48,7 +47,8 @@ while True:
 
     results=model.predict(frame)
  #   print(results)
-    a=results[0].boxes.boxes
+    # a=results[0].boxes.boxes
+    a = results[0].boxes.data.cpu().numpy()
     px=pd.DataFrame(a).astype("float")
 #    print(px)
     list=[]
